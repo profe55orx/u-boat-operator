@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: u-boat-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: u-boat-operator
+  template:
+    metadata:
+      labels:
+        name: u-boat-operator
+    spec:
+      serviceAccountName: u-boat-operator
+      containers:
+        - name: u-boat-operator
+          # Replace this with the built image name
+          image: REPLACE_IMAGE
+          command:
+          - u-boat-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "u-boat-operator"

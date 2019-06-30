@@ -1,0 +1,11 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: u-boat-operator
+subjects:
+- kind: ServiceAccount
+  name: u-boat-operator
+roleRef:
+  kind: Role
+  name: u-boat-operator
+  apiGroup: rbac.authorization.k8s.io
